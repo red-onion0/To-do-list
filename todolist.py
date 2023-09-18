@@ -5,6 +5,19 @@ import csv
 
 def main():
     # get tasks and with ctrl + D end that:
+    tasks = get_tasks()
+
+    # write tasks:
+    write_tasks("tasks.csv", tasks)
+    
+    # read tasks:
+    tasks = read_tasks("tasks.csv")
+
+    # show tasks:
+    print(tabulate(tasks, tablefmt="grid"))
+
+
+def get_tasks():
     tasks = []
     print("press ctrl-D when finished")
     while True:
@@ -12,19 +25,20 @@ def main():
             tasks.append(input("Task: "))
         except EOFError:
             break
+    return tasks
 
-    # make a csv file:
-    with open("tasks.csv", "w",) as file:
+
+def write_tasks(file_path, tasks):
+    with open(file_path, "w",) as file:
         writer = csv.DictWriter(file, fieldnames=["tick", "task", "tag"])
         writer.writeheader()
-
-        # write task in csv file:
         for task in tasks:
             writer.writerow({"tick": "unticked", "task": task, "tag": "None",})
-    
-    # load tasks:
+
+
+def read_tasks(file_path):
     tasks=[]
-    with open("tasks.csv",) as file:
+    with open(file_path) as file:
         reader = csv.DictReader(file)
         for row in reader:
 
@@ -37,9 +51,8 @@ def main():
                 row["tick"] == "☑"
             
             tasks.append(row)
+    return tasks
 
-    # show tasks:
-    print(tabulate(tasks, headers="keys", tablefmt="grid"))
 
 if __name__ == "__main__":
     main()
