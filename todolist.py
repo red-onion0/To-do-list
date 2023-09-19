@@ -15,6 +15,9 @@ def main():
         # write tasks in file:
         write_tasks("tasks.csv", modified_data, file_exist=True)
 
+        # show the changes:
+        print(show_tasks("tasks.csv"))
+
     if len(sys.argv) == 1:
         # get tasks and with ctrl + D end that:
         tasks = get_tasks()
@@ -87,7 +90,7 @@ def show_tasks(file_path):
 
         # use Ballot Box with Check ☑ for ticked
         elif row["tick"] == "ticked":
-            row["tick"] == "☑"
+            row["tick"] = "☑"
 
         modified_data.append(row)
     
