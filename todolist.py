@@ -18,7 +18,7 @@ def main():
         # show the changes:
         print(show_tasks("tasks.csv"))
 
-    if len(sys.argv) == 1:
+    if len(sys.argv) == 2 and sys.argv[1] in ["-n", "--new"]:
         # get tasks and with ctrl + D end that:
         tasks = get_tasks()
 
